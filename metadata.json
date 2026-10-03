@@ -1,0 +1,6 @@
+{
+  "name": "Root Force - Student Rental & Trust Platform",
+  "description": "Student-first rental platform with verified PG/room listings, True Cost calculator, roommate matching, parent trust layer, and move-in deposit protection.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

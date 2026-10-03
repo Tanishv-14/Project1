@@ -1,0 +1,16 @@
+root-force-backend/
+├── app.py                     # Main Flask application with API routes
+├── firebase_config.py         # Firebase Admin SDK & Firestore initialization
+├── requirements.txt           # Python dependencies
+├── .env.example               # Environment variables template
+├── serviceAccountKey.json.example  # Template for Firebase credentials
+├── README.md                  # Complete setup & hackathon guide
+├── static/
+│   ├── css/
+│   │   └── style.css          # Clean CSS styling for vanilla templates
+│   └── js/
+│       ├── search.js          # Search & filter client logic
+│       └── calculator.js      # True cost calculation client logic
+└── templates/
+    ├── index.html             # Home & Property Search page
+    └── true_cost.html         # Interactive True Cost Calculator page

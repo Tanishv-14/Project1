@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Root Force - Student Rental Platform (Flask MVP)</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Top Navigation -->
+    <header class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <span class="logo-icon">🌿</span>
+                <span class="logo-text">Root Force</span>
+                <span class="tagline">Student-First Rentals</span>
+            </div>
+            <nav class="nav-links">
+                <a href="#search" class="active">Find PGs & Rooms</a>
+                <a href="/true-cost">True Cost Calculator</a>
+                <a href="#roommates">Roommate Matcher</a>
+                <a href="#parent">Parent Trust</a>
+                <a href="#depositguard">DepositGuard</a>
+            </nav>
+            <div class="role-badge">
+                <span>Active Role:</span>
+                <select id="userRoleSelect" onchange="switchRole(this.value)">
+                    <option value="student">🎓 Student</option>
+                    <option value="owner">🏠 Owner</option>
+                    <option value="parent">🛡️ Parent</option>
+                </select>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Fair, Verified Student Housing Near Your Campus</h1>
+            <p>No arbitrary brokerages. No hidden electricity surcharges. Pre-verified owners and move-in proof to secure 100% of your deposit.</p>
+            
+            <div class="search-bar">
+                <input type="text" id="searchInput" placeholder="Search by college name (e.g. North Campus, DTU, IIT)...">
+                <select id="typeFilter">
+                    <option value="">All Types</option>
+                    <option value="pg_sharing">Sharing PG</option>
+                    <option value="single_room">Single Room</option>
+                    <option value="flat_1bhk">1BHK Student Flat</option>
+                </select>
+                <button onclick="fetchProperties()" class="btn-primary">Search Housing</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Container -->
+    <main class="main-container">
+        <!-- Filter Controls -->
+        <aside class="filter-sidebar">
+            <h3>Filter Results</h3>
+            
+            <div class="filter-group">
+                <label for="rentRange">Max Rent: <span id="rentDisplay">₹15,000</span></label>
+                <input type="range" id="rentRange" min="4000" max="25000" step="500" value="15000" oninput="updateRentFilter(this.value)">
+            </div>
+
+            <div class="filter-group">
+                <label for="distanceRange">Max Distance to Campus: <span id="distanceDisplay">3.0 km</span></label>
+                <input type="range" id="distanceRange" min="0.5" max="10" step="0.5" value="3.0" oninput="updateDistanceFilter(this.value)">
+            </div>
+
+            <div class="filter-group">
+                <label>Must-Have Amenities</label>
+                <label class="checkbox-label"><input type="checkbox" value="wifi" onchange="toggleAmenity(this.value)"> High-Speed Wi-Fi</label>
+                <label class="checkbox-label"><input type="checkbox" value="food" onchange="toggleAmenity(this.value)"> Mess / Food Included</label>
+                <label class="checkbox-label"><input type="checkbox" value="ac" onchange="toggleAmenity(this.value)"> AC Room</label>
+            </div>
+
+            <div class="verification-box">
+                <h4>🛡️ DigiLocker Trust Pass</h4>
+                <p>Verify your student ID to unlock zero-brokerage direct chat with verified owners.</p>
+                <button onclick="openVerificationModal()" class="btn-secondary">Verify Student ID</button>
+            </div>
+        </aside>
+
+        <!-- Property Grid -->
+        <section class="listings-section">
+            <div class="listings-header">
+                <h2>Verified Student Accommodations (<span id="resultsCount">2</span>)</h2>
+                <a href="/true-cost" class="btn-outline">Open True Cost Calculator →</a>
+            </div>
+
+            <div id="propertiesGrid" class="properties-grid">
+                <!-- Injected via JavaScript from /api/properties -->
+                <div class="loading-state">Loading verified properties from Firestore...</div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Simple DigiLocker Verification Modal -->
+    <div id="verifyModal" class="modal hidden">
+        <div class="modal-card">
+            <h3>Simulated DigiLocker Verification</h3>
+            <p>Demonstrating Government ID and College Enrolment Verification for Hackathon Judges.</p>
+            <div class="form-group">
+                <label>Full Name as on Govt ID</label>
+                <input type="text" id="verifyName" value="Arjun Sharma">
+            </div>
+            <div class="form-group">
+                <label>College Roll / ID Number</label>
+                <input type="text" id="verifyRoll" value="2024-CS-089">
+            </div>
+            <div class="modal-actions">
+                <button onclick="closeVerificationModal()" class="btn-secondary">Cancel</button>
+                <button onclick="submitVerification()" class="btn-primary">Verify Instantly (DigiLocker)</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="/static/js/main.js"></script>
+</body>
+</html>
